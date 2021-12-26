@@ -1,0 +1,101 @@
+music_catalog=> create table if not exists genres(
+music_catalog(> id serial primary key,
+music_catalog(> title_genres varchar(40) unique not null
+music_catalog(> );
+CREATE TABLE
+music_catalog=> create table if not exists performers(
+music_catalog(> id serial primary key,
+music_catalog(> name_performers varchar(40) unique not null,
+music_catalog(> pseudonym varchar(40) unique not null
+music_catalog(> );
+CREATE TABLE
+music_catalog=>
+music_catalog=> create table if not exists albums(
+music_catalog(> id serial primary key,
+music_catalog(> name_album varchar(40) unique not null,
+music_catalog(> year_of_issue integer
+music_catalog(> );
+CREATE TABLE
+music_catalog=>
+music_catalog=> create table if not exists tracks(
+music_catalog(> id serial primary key,
+music_catalog(> name_track varchar(40) unique not null,
+music_catalog(> track_duration integer,
+music_catalog(> albums_id integer references albums(id)
+music_catalog(> );
+CREATE TABLE
+music_catalog=>
+music_catalog=> create table if not exists collection(
+music_catalog(> id serial primary key,
+music_catalog(> name_collectioan varchar(40) unique not null,
+music_catalog(> year_of_issue integer
+music_catalog(> );
+CREATE TABLE
+music_catalog=>
+music_catalog=> create table if not exists genres_performers(
+music_catalog(> genres_id integer references genres(id),
+music_catalog(> performers_id integer references performers(id),
+music_catalog(> constraint pk primary key (genres_id, performers_id)
+music_catalog(> );
+CREATE TABLE
+music_catalog=>
+music_catalog=> create table if not exists albums_performers(
+music_catalog(> albums_id integer references albums(id),
+music_catalog(> performers_id integer references performers(id),
+music_catalog(> constraint rk primary key (albums_id, performers_id)
+music_catalog(> );
+CREATE TABLE
+music_catalog=>
+music_catalog=> create table if not exists collection_tracks(
+music_catalog(> collection_id integer references collection(id),
+music_catalog(> tracks_id integer references tracks(id),
+music_catalog(> constraint dk primary key (collection_id, tracks_id)
+music_catalog(> );
+CREATE TABLE
+
+
+music_catalog=> INSERT INTO
+music_catalog-> performers(name_performers, pseudonym)
+music_catalog-> VALUES
+music_catalog-> ('artist_1', 'pseudonym_1'), ('artist_2', 'pseudonym_2'), ('artist_3', 'pseudonym_3'), ('artist_4', 'pseudonym_4'), ('artist_5', 'pseudonym_5'), ('artist_6', 'pseudonym_6'), ('artist_7', 'pseudonym_7'),
+music_catalog-> ('artist_8', 'pseudonim_8'), ('artist_9', 'pseudonim_9'), ('artist_10', 'pseudonim_10'), ('artist_11', 'pseudonim_11'), ('artist_12', 'pseudonim_12'), ('artist_13', 'pseudonim_13'), ('artist_14', 'pseudonim_14'),
+music_catalog-> ('artist_15', 'pseudonim_15');
+INSERT 0 15
+music_catalog=> INSERT INTO
+music_catalog-> genres(title_genres)
+music_catalog-> VALUES
+music_catalog-> ('genre_1'), ('genre_2'), ('genre_3'), ('genre_4'), ('genre_5');
+INSERT 0 5
+music_catalog=> INSERT INTO
+music_catalog-> albums (name_album, year_of_issue)
+music_catalog-> VALUES
+music_catalog-> ('album_name_1990', '1990'), ('album_name_1991', '1991'), ('album_name_2000', '2000'), ('album_name_2001', '2001'), ('album_name_2003', '2003'), ('album_name_2005', '2005'),
+music_catalog-> ('album_name_2007', '2007'), ('album_name_2009', '2009'), ('album_name_2010', '2010');
+INSERT 0 9
+music_catalog=> INSERT INTO
+music_catalog-> tracks(name_track, track_duration, albums_id)
+music_catalog-> VALUES
+music_catalog-> ('track_1', 3.05, 1), ('track_2', 3.45, 2), ('track_3', 3.11, 3), ('track_4', 2.45, 4), ('track_5', 1.15, 5), ('track_6', 3.45, 6), ('track_7', 3.55, 7), ('track_8', 2.15, 8),
+music_catalog-> ('track_9', 3.05, 1), ('track_10', 3.45, 2), ('track_11', 3.11, 3), ('track_12', 2.45, 4), ('track_13', 1.15, 5), ('track_14', 3.45, 6), ('my_14', 2.45, 7), ('my', 2.15, 8);
+INSERT 0 16
+music_catalog=> INSERT INTO
+music_catalog-> collection (name_collectioan, year_of_issue)
+music_catalog-> VALUES
+music_catalog-> ('collection_1990', '1990'), ('collection_1991', '1991'), ('collection_2000', '2000'), ('collection_2001', '2001'),('collection_2003', '2003'),('collection_2005', '2005'),
+music_catalog-> ('collection_2007', '2007'), ('collection_2009', '2009'), ('collection_2010', '2010');
+INSERT 0 9
+music_catalog=> INSERT INTO
+music_catalog-> albums_performers (albums_id, performers_id)
+music_catalog-> VALUES
+music_catalog-> (1, 1), (2,2), (3, 3), (4, 4), (5, 5), (6, 6), (7, 7), (8, 8), (1, 9), (2, 10), (3, 11), (4, 12), (5, 13), (6,14), (7, 15);
+INSERT 0 15
+music_catalog=> INSERT INTO
+music_catalog-> genres_performers (genres_id, performers_id)
+music_catalog-> VALUES
+music_catalog-> (1, 1), (2,2), (3, 3), (4, 4), (5, 5), (1, 6), (2, 7), (3, 8), (4, 9), (5, 10), (1, 11), (2, 12), (3, 13), (4, 14), (5, 15);
+INSERT 0 15
+music_catalog=> INSERT INTO
+music_catalog-> collection_tracks (collection_id, tracks_id)
+music_catalog-> VALUES
+music_catalog-> (1, 1), (2,2), (3, 3), (4, 4), (5, 5), (6, 6), (7, 7), (8, 8), (9, 9), (1, 10), (2, 11), (3, 12), (4, 13), (5, 14), (6, 15), (7, 16);
+INSERT 0 16
